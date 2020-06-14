@@ -15,14 +15,13 @@ pipelines:
             - name: myArtifactory
         execution:
           onStart:
-            - echo "Go Backend Path:" 
-            - echo ${res_cicd_docker_build_filespec_go_backend_resourcePath}
+            - echo "Go Backend Path:${res_cicd_docker_build_filespec_go_backend_resourcePath}"
  
       - name: cicd_docker_push_go_backend
         type: DockerPush
         configuration:
           affinityGroup: cicd_go_backend_group
-          targetRepository: cicd-docker
+          targetRepository: cicd-docker-local
           integrations:
             - name: myArtifactory
           inputSteps:
