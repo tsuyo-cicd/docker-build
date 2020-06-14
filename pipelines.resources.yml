@@ -11,3 +11,15 @@ resources:
       sourceArtifactory: myArtifactory
       buildName: cicd_docker_build_buildinfo # ignored see https://www.jfrog.com/jira/browse/PIPE-2387
       buildNumber: 1                         # ignored see https://www.jfrog.com/jira/browse/PIPE-2387
+  - name: cicd_docker_build_filespec_go_backend
+    type: FileSpec
+    configuration:
+      sourceArtifactory: myArtifactory
+      # pattern: 'cicd-generic/**/${appVersion}/backend'
+      pattern: 'cicd-generic/go_backend'
+      # buildName: '${triggerBuildInfoName}'
+      # buildNumber: '${triggerBuildInfoNumber}'
+      # flat: true
+      # pattern: app-generic/backend
+      # aql: '{"name":"backend","@build.name":"backapp_go_pipeline","@build.number":"43"}'
+      # aql: "({\"name\":\"backend\"})"

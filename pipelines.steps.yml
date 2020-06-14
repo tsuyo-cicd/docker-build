@@ -13,6 +13,10 @@ pipelines:
             - name: cicd_docker_build_gitrepo
           integrations:
             - name: myArtifactory
+        execution:
+          onStart:
+            - echo "Go Backend Path:" 
+            - echo ${res_cicd_docker_build_filespec_go_backend_resourcePath}
  
       - name: cicd_docker_push_go_backend
         type: DockerPush
