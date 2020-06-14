@@ -12,12 +12,17 @@ pipelines:
           dockerOptions: --no-cache
           inputResources:
             - name: cicd_docker_build_gitrepo
-            - name: cicd_docker_build_filespec_go_backend
+            - name: cicd_docker_build_filespec_go_backend # this is required to get an env variable like ${res_cicd_docker_build_filespec_go_backend_resourcePath}
           integrations:
             - name: myArtifactory
         execution:
           onStart:
-            - echo "Go Backend Path => ${res_cicd_docker_build_filespec_go_backend_resourcePath}"
+            - pwd && ls -l
+            - echo "Source Location => ${res_cicd_docker_build_gitrepo_resourcePath}"
+            - ls -l ${res_cicd_docker_build_gitrepo_resourcePath}
+            - echo "FileSpec Location => ${res_cicd_docker_build_filespec_go_backend_resourcePath}"
+            - ls -l ${res_cicd_docker_build_filespec_go_backend_resourcePath}
+            - cp ${res_cicd_docker_build_filespec_go_backend_resourcePath}/* ${res_cicd_docker_build_gitrepo_resourcePath}/
  
       - name: cicd_docker_push_go_backend
         type: DockerPush
