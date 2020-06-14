@@ -1,0 +1,13 @@
+resources:
+  - name: cicd_docker_build_gitrepo
+    type: GitRepo
+    configuration:
+      gitProvider: tsuyo_github
+      path: tsuyo-cicd/docker-build # Replace with your Git repo  
+ 
+  - name: cicd_docker_build_buildinfo
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: myArtifactory
+      buildName: cicd_docker_build_buildinfo # ignored see https://www.jfrog.com/jira/browse/PIPE-2387
+      buildNumber: 1                         # ignored see https://www.jfrog.com/jira/browse/PIPE-2387

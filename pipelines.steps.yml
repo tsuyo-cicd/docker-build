@@ -1,0 +1,33 @@
+pipelines:
+  - name: cicd_docker_build
+    steps:
+      - name: cicd_docker_build_go_backend
+        type: DockerBuild
+        configuration:
+          affinityGroup: cicd_go_backend_group
+          dockerFileLocation: .
+          dockerFileName: Dockerfile
+          dockerImageName: 'artifactory1.tsuyo.org:8082/cicd-docker/cicd-go-backend'
+          dockerImageTag: ${run_number}
+          inputResources:
+            - name: cicd_docker_build_gitrepo
+          integrations:
+            - name: myArtifactory
+ 
+      - name: cicd_docker_push_go_backend
+        type: DockerPush
+        configuration:
+          affinityGroup: cicd_go_backend_group
+          targetRepository: cicd-docker
+          integrations:
+            - name: myArtifactory
+          inputSteps:
+            - name: cicd_docker_build_go_backend
+ 
+      - name: cicd_publish_build_info_go_backend
+        type: PublishBuildInfo
+        configuration:
+          inputSteps:
+            - name: cicd_docker_push_go_backend
+          outputResources:
+            - name: cicd_docker_build_buildinfo
