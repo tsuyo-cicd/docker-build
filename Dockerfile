@@ -3,7 +3,7 @@ RUN apk update && apk add curl
 
 WORKDIR /root/
 
-COPY go_backend
+COPY go_backend .
 
 RUN chmod u+x go_backend
 
