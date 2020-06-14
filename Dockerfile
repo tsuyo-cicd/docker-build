@@ -1,4 +1,4 @@
-FROM golang:alpine3.11
+FROM alpine:3.11
 RUN apk update && apk add curl 
 
 WORKDIR /root/
