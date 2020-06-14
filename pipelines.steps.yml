@@ -12,6 +12,7 @@ pipelines:
           dockerOptions: --no-cache
           inputResources:
             - name: cicd_docker_build_gitrepo
+            - name: cicd_docker_build_filespec_go_backend
           integrations:
             - name: myArtifactory
         execution:
