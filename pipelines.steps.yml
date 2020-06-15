@@ -30,18 +30,19 @@ pipelines:
         configuration:
           affinityGroup: cicd_go_backend_group
           targetRepository: cicd-docker
+          autoPublishBuildInfo: true
           integrations:
             - name: myArtifactory
           inputSteps:
             - name: cicd_docker_build_go_backend
  
-      - name: cicd_publish_build_info_go_backend
-        type: PublishBuildInfo
-        configuration:
-          inputSteps:
-            - name: cicd_docker_push_go_backend
-          outputResources:
-            - name: cicd_docker_build_buildinfo_go_backend
+      # - name: cicd_publish_build_info_go_backend
+      #   type: PublishBuildInfo
+      #   configuration:
+      #     inputSteps:
+      #       - name: cicd_docker_push_go_backend
+      #     outputResources:
+      #       - name: cicd_docker_build_buildinfo_go_backend
 
   - name: cicd_docker_js_frontend
     steps:        
