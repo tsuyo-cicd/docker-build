@@ -38,14 +38,6 @@ pipelines:
           outputResources:
             - name: cicd_docker_build_buildinfo_go_backend
  
-      # - name: cicd_publish_build_info_go_backend
-      #   type: PublishBuildInfo
-      #   configuration:
-      #     inputSteps:
-      #       - name: cicd_docker_push_go_backend
-      #     outputResources:
-      #       - name: cicd_docker_build_buildinfo_go_backend
-
   - name: cicd_docker_js_frontend
     steps:        
       # For js_frontend steps
@@ -77,15 +69,10 @@ pipelines:
         configuration:
           affinityGroup: cicd_js_frontend_group
           targetRepository: cicd-docker
+          autoPublishBuildInfo: true
           integrations:
             - name: myArtifactory
           inputSteps:
             - name: cicd_docker_build_js_frontend
-
-      - name: cicd_publish_build_info_js_frontend
-        type: PublishBuildInfo
-        configuration:
-          inputSteps:
-            - name: cicd_docker_push_js_frontend
           outputResources:
             - name: cicd_docker_build_buildinfo_js_frontend
