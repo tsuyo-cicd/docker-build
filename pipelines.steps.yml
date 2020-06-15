@@ -31,6 +31,8 @@ pipelines:
           affinityGroup: cicd_go_backend_group
           targetRepository: cicd-docker
           autoPublishBuildInfo: true
+          forceXrayScan: true
+          failOnScan: false
           integrations:
             - name: myArtifactory
           inputSteps:
