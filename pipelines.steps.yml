@@ -32,7 +32,7 @@ pipelines:
           targetRepository: cicd-docker
           autoPublishBuildInfo: true
           forceXrayScan: true
-          failOnScan: false
+          # failOnScan: false
           integrations:
             - name: myArtifactory
           inputSteps:
