@@ -1,12 +1,13 @@
 pipelines:
   - name: cicd_docker_build
     steps:
+      # For go_backend steps
       - name: cicd_docker_build_go_backend
         type: DockerBuild
         configuration:
           affinityGroup: cicd_go_backend_group
           dockerFileLocation: .
-          dockerFileName: Dockerfile
+          dockerFileName: go-backend.Dockerfile
           dockerImageName: 'artifactory1.tsuyo.org:8082/cicd-docker/cicd-go-backend'
           dockerImageTag: ${run_number}
           dockerOptions: --no-cache
@@ -40,4 +41,46 @@ pipelines:
           inputSteps:
             - name: cicd_docker_push_go_backend
           outputResources:
-            - name: cicd_docker_build_buildinfo
+            - name: cicd_docker_build_buildinfo_go_backend
+
+      # For js_frontend steps
+      - name: cicd_docker_build_js_frontend
+        type: DockerBuild
+        configuration:
+          affinityGroup: cicd_js_frontend_group
+          dockerFileLocation: .
+          dockerFileName: js-frontend.Dockerfile
+          dockerImageName: 'artifactory1.tsuyo.org:8082/cicd-docker/cicd-js-frontend'
+          dockerImageTag: ${run_number}
+          dockerOptions: --no-cache
+          inputResources:
+            - name: cicd_docker_build_gitrepo
+            # - name: cicd_docker_build_filespec_js_frontend # this is required to get an env variable like ${res_cicd_docker_build_filespec_go_backend_resourcePath}
+          integrations:
+            - name: myArtifactory
+        # execution:
+        #   onStart:
+        #     - pwd && ls -l
+        #     - echo "Source Location => ${res_cicd_docker_build_gitrepo_resourcePath}"
+        #     - ls -l ${res_cicd_docker_build_gitrepo_resourcePath}
+        #     - echo "FileSpec Location => ${res_cicd_docker_build_filespec_go_backend_resourcePath}"
+        #     - ls -l ${res_cicd_docker_build_filespec_go_backend_resourcePath}
+        #     - cp ${res_cicd_docker_build_filespec_go_backend_resourcePath}/* ${res_cicd_docker_build_gitrepo_resourcePath}/
+
+      - name: cicd_docker_push_js_frontend
+        type: DockerPush
+        configuration:
+          affinityGroup: cicd_js_frontend_group
+          targetRepository: cicd-docker
+          integrations:
+            - name: myArtifactory
+          inputSteps:
+            - name: cicd_docker_build_js_frontend
+
+      - name: cicd_publish_build_info_js_frontend
+        type: PublishBuildInfo
+        configuration:
+          inputSteps:
+            - name: cicd_docker_push_js_frontend
+          outputResources:
+            - name: cicd_docker_build_buildinfo_js_frontend

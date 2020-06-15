@@ -5,12 +5,19 @@ resources:
       gitProvider: tsuyo_github
       path: tsuyo-cicd/docker-build # Replace with your Git repo  
  
-  - name: cicd_docker_build_buildinfo
+  - name: cicd_docker_build_buildinfo_go_backend
     type: BuildInfo
     configuration:
       sourceArtifactory: myArtifactory
-      buildName: cicd_docker_build_buildinfo # ignored see https://www.jfrog.com/jira/browse/PIPE-2387
-      buildNumber: 1                         # ignored see https://www.jfrog.com/jira/browse/PIPE-2387
+      buildName: cicd_docker_build_buildinfo_go_backend # ignored see https://www.jfrog.com/jira/browse/PIPE-2387
+      buildNumber: 1                                    # ignored see https://www.jfrog.com/jira/browse/PIPE-2387
+  - name: cicd_docker_build_buildinfo_js_frontend
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: myArtifactory
+      buildName: cicd_docker_build_buildinfo_js_frontend # ignored see https://www.jfrog.com/jira/browse/PIPE-2387
+      buildNumber: 1                                     # ignored see https://www.jfrog.com/jira/browse/PIPE-2387
+  
   - name: cicd_docker_build_filespec_go_backend
     type: FileSpec
     configuration:
