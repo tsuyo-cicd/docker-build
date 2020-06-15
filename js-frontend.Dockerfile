@@ -16,7 +16,7 @@ RUN npm i
 RUN npm run build 
 RUN npm i -g serve 
 
-COPY updateAndRun.sh . 
+# RUN cp updateAndRun.sh .
 RUN chmod u+x updateAndRun.sh
 
 EXPOSE 80 

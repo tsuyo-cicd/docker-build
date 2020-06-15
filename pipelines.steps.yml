@@ -18,7 +18,7 @@ pipelines:
             - name: myArtifactory
         execution:
           onStart:
-            - env && pwd && ls -l
+            - pwd && ls -l
             - echo "Source Location => ${res_cicd_docker_build_gitrepo_resourcePath}"
             - ls -l ${res_cicd_docker_build_gitrepo_resourcePath}
             - echo "FileSpec Location => ${res_cicd_docker_build_filespec_go_backend_resourcePath}"
