@@ -1,5 +1,5 @@
 pipelines:
-  - name: cicd_docker_build
+  - name: cicd_docker_go_backend
     steps:
       # For go_backend steps
       - name: cicd_docker_build_go_backend
@@ -43,6 +43,8 @@ pipelines:
           outputResources:
             - name: cicd_docker_build_buildinfo_go_backend
 
+  - name: cicd_docker_js_frontend
+    steps:        
       # For js_frontend steps
       - name: cicd_docker_build_js_frontend
         type: DockerBuild
