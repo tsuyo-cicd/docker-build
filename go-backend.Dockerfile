@@ -1,4 +1,4 @@
-FROM alpine:3.11
+FROM artifactory1.tsuyo.org:8082/cicd-docker/alpine:3.11
 RUN apk update && apk add curl 
 
 WORKDIR /root/
